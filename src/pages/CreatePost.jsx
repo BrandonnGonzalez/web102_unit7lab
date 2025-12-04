@@ -50,4 +50,3 @@ const CreatePost = () => {
 }
 
 export default CreatePost
-// temp comment to test commit perms

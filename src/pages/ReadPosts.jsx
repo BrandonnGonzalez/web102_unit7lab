@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { supabase } from '../client'
 import Card from '../components/Card'
 
 const ReadPosts = (props) => {
@@ -6,8 +7,14 @@ const ReadPosts = (props) => {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        setPosts(props.data)
-    }, [props])
+        // READ ALL posts from the database table 
+        const fetchPost = async () => {
+            const { data } = await supabase .from('Posts').select('*')
+            // set state of posts
+            setPosts(data);
+        }
+        fetchPost();
+    }, []); // empty dependency array to run only once
     
     return (
         <div className="ReadPosts">
