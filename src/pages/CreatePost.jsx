@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { supabase } from '../client'
 import './CreatePost.css'
 
 const CreatePost = () => {
@@ -15,7 +16,18 @@ const CreatePost = () => {
         })
     }
 
+    const createPost = async (event) => {
+        event.preventDefault();
+        await supabase
+            .from('Posts')
+            .insert({title: post.title, author: post.author, description: post.description})
+            .select();
+        window.location = '/';
+
+    }
+ 
     return (
+
         <div>
             <form>
                 <label htmlFor="title">Title</label> <br />
@@ -30,10 +42,12 @@ const CreatePost = () => {
                 <textarea rows="5" cols="50" id="description" name="description" onChange={handleChange}>
                 </textarea>
                 <br/>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit" onClick={createPost} />
+
             </form>
         </div>
     )
 }
 
 export default CreatePost
+// temp comment to test commit perms
